@@ -1,0 +1,32 @@
+{
+  "appName": "Lesson Plan Agent",
+  "appDescription": "A focused chat workspace powered by a Google ADK agent.",
+  "logoUrl": "/examples/lesson-plan-agent/logo.svg",
+  "logoDarkUrl": "/examples/lesson-plan-agent/logo.svg",
+  "faviconUrl": "/examples/lesson-plan-agent/favicon.svg",
+  "welcomeTitle": "Ready to build your Lesson Plan!",
+  "welcomeMessage": "",
+  "suggestions": [],
+  "inputPlaceholder": "Create a Lesson about...",
+  "footerText": "",
+  "disclaimer": "",
+  "uploads": {
+    "enabled": false,
+    "maxFiles": 5,
+    "maxFileSizeMb": 10,
+    "accept": "image/*,application/pdf,text/*,audio/*,video/*,.txt,.md,.csv,.json"
+  },
+  "fontSize": { "default": 15, "adjustable": true, "min": 12, "max": 24 },
+  "theme": {
+    "mode": "light",
+    "font": "Inter, sans-serif",
+    "fontUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+    "buttonRadius": "9999px",
+    "light": {
+      "background": "#fbfaf7",
+      "sidebarBackground": "#12233f",
+      "buttonColor": "#1a73e8",
+      "chatBubbleColor": "#e8f0fe"
+    }
+  }
+}

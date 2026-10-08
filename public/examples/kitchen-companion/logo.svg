@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Sous Chef">
+  <path d="M22 20c-4-5-1-9 2-12M32 18c-4-5-1-9 2-12" stroke="#C8553D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M41 18c1-6 6-9 12-8-1 6-5 10-12 8Z" fill="#6E925B"/>
+  <path d="M41 18c1-4 3-6 7-7" stroke="#2F3E2C" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M12 27h40v7c0 14-8 22-20 22S12 48 12 34v-7Z" fill="#C8553D"/>
+  <path d="M17 34c0 10 5 16 15 16" stroke="#F6E7C8" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+  <path d="M10 27h44" stroke="#2F3E2C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M10 32H7a5 5 0 0 0 0 10h7M54 32h3a5 5 0 0 1 0 10h-7" stroke="#2F3E2C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M26 56h12" stroke="#2F3E2C" stroke-width="3" stroke-linecap="round"/>
+</svg>

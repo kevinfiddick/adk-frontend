@@ -1,0 +1,36 @@
+{
+  "appName": "Code Reviewer",
+  "appDescription": "Reviews diffs and explains code.",
+  "logoUrl": "/examples/code-reviewer/logo.svg",
+  "logoDarkUrl": "",
+  "faviconUrl": "/examples/code-reviewer/favicon.svg",
+  "welcomeTitle": "Paste a diff to get started",
+  "welcomeMessage": "I review code for **bugs**, **readability** and **missing tests**. Paste a snippet or attach source files.",
+  "suggestions": [
+    "Review this function for edge cases",
+    "Explain what this regex does",
+    "Suggest tests for this module"
+  ],
+  "inputPlaceholder": "Paste code or ask a question...",
+  "footerText": "",
+  "disclaimer": "Review suggestions before applying them.",
+  "uploads": {
+    "enabled": true,
+    "maxFiles": 8,
+    "maxFileSizeMb": 2,
+    "accept": "text/*,.py,.js,.jsx,.ts,.tsx,.java,.go,.rs,.json,.md,.sql,.sh"
+  },
+  "fontSize": { "default": 14, "adjustable": true, "min": 12, "max": 20 },
+  "theme": {
+    "mode": "dark",
+    "font": "JetBrains Mono, monospace",
+    "fontUrl": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
+    "buttonRadius": "6px",
+    "dark": {
+      "background": "#0d1117",
+      "sidebarBackground": "#010409",
+      "buttonColor": "#3fb950",
+      "chatBubbleColor": "#1f2937"
+    }
+  }
+}

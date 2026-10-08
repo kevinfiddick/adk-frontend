@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# Environment variables (keep .env.example)
+.env
+.env*.local
+
+# Deployment and tooling
+.vercel/
+.DS_Store

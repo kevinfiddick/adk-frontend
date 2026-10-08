@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Support Desk favicon">
+  <path d="M8 16C8 10.5 12.5 6 18 6h28c5.5 0 10 4.5 10 10v25c0 5.5-4.5 10-10 10H27L12 60V49.1A10 10 0 0 1 8 41V16Z" fill="#6D4AFF"/>
+  <path d="M19 24h26M19 34h15" stroke="#FFF" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="46" cy="45" r="11" fill="#EDE8FF" stroke="#6D4AFF" stroke-width="3"/>
+  <path d="m41 45 3.2 3.2 6.5-6.7" stroke="#6D4AFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

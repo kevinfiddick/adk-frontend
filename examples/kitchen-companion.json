@@ -1,0 +1,36 @@
+{
+  "appName": "Sous Chef",
+  "appDescription": "Suggests recipes from what you have in the kitchen.",
+  "logoUrl": "/examples/kitchen-companion/logo.svg",
+  "logoDarkUrl": "",
+  "faviconUrl": "/examples/kitchen-companion/favicon.svg",
+  "welcomeTitle": "What's in the fridge?",
+  "welcomeMessage": "List your ingredients or attach a photo of them and I will suggest something to cook.",
+  "suggestions": [
+    "Dinner with chicken and rice",
+    "A vegetarian meal in 20 minutes",
+    "What can I bake without eggs?"
+  ],
+  "inputPlaceholder": "List ingredients or ask for a recipe...",
+  "footerText": "Sous Chef",
+  "disclaimer": "Always check ingredients for allergens.",
+  "uploads": {
+    "enabled": true,
+    "maxFiles": 3,
+    "maxFileSizeMb": 8,
+    "accept": "image/*"
+  },
+  "fontSize": { "default": 16, "adjustable": false, "min": 12, "max": 24 },
+  "theme": {
+    "mode": "light",
+    "font": "Lora, Georgia, serif",
+    "fontUrl": "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap",
+    "buttonRadius": "9999px",
+    "light": {
+      "background": "#fffdf7",
+      "sidebarBackground": "#2f3e2c",
+      "buttonColor": "#c8553d",
+      "chatBubbleColor": "#f6e7c8"
+    }
+  }
+}

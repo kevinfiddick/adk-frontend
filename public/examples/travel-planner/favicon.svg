@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Wayfarer favicon">
+  <circle cx="32" cy="32" r="28" fill="#0F4C5C"/>
+  <path d="m44 20-8 18-16 6 8-18 16-6Z" fill="#FFF8F0" stroke="#FFF8F0" stroke-width="2" stroke-linejoin="round"/>
+  <path d="m44 20-8 18-8-12 16-6Z" fill="#E36414"/>
+  <circle cx="32" cy="32" r="2.4" fill="#0F4C5C"/>
+</svg>

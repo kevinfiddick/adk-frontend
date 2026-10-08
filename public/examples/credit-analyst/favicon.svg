@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Credit Analyst Assistant">
+  <rect x="5" y="5" width="54" height="54" rx="13" fill="#0F2A43"/>
+  <path d="M18 42V34M28 42V27M38 42V20" stroke="#5BC69A" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="45" cy="44" r="13" fill="#0B6E4F" stroke="#0F2A43" stroke-width="3"/>
+  <path d="m39.5 44 3.6 3.6 6.7-7" stroke="#FFFFFF" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

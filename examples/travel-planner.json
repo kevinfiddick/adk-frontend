@@ -1,0 +1,36 @@
+{
+  "appName": "Wayfarer",
+  "appDescription": "Plans trips and builds day-by-day itineraries.",
+  "logoUrl": "/examples/travel-planner/logo.svg",
+  "logoDarkUrl": "",
+  "faviconUrl": "/examples/travel-planner/favicon.svg",
+  "welcomeTitle": "Where to next?",
+  "welcomeMessage": "Tell me where you are going, for how long and what you enjoy, and I will build an itinerary.",
+  "suggestions": [
+    "A long weekend in Lisbon",
+    "Two weeks in Japan in spring",
+    "Family road trip ideas for July"
+  ],
+  "inputPlaceholder": "Where would you like to go?",
+  "footerText": "Wayfarer travel planning",
+  "disclaimer": "Check opening hours, prices and entry requirements before you book.",
+  "uploads": {
+    "enabled": false,
+    "maxFiles": 5,
+    "maxFileSizeMb": 10,
+    "accept": "image/*,application/pdf"
+  },
+  "fontSize": { "default": 16, "adjustable": true, "min": 13, "max": 24 },
+  "theme": {
+    "mode": "light",
+    "font": "Montserrat, sans-serif",
+    "fontUrl": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap",
+    "buttonRadius": "12px",
+    "light": {
+      "background": "#fff8f0",
+      "sidebarBackground": "#0f4c5c",
+      "buttonColor": "#e36414",
+      "chatBubbleColor": "#ffe8d1"
+    }
+  }
+}
