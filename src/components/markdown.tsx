@@ -62,7 +62,7 @@ function CodeBlock({ node, children }: ComponentProps<'pre'> & ExtraProps) {
     if (!(await copyText(nodeText(code).replace(/\n$/, '')))) return
     setCopied(true); setTimeout(() => setCopied(false), 1500)
   }
-  return <div className="code-block" style={codeTheme === 'auto' ? undefined : { colorScheme: codeTheme }}>
+  return <div className={codeTheme === 'auto' ? 'code-block' : `code-block code-${codeTheme}`}>
     <div className="code-block-header">
       <span data-testid="code-language">{language || 'code'}</span>
       <button type="button" data-testid="code-copy" onClick={copy}>{copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}{copied ? 'Copied' : 'Copy'}</button>

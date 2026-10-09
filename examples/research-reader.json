@@ -6,29 +6,18 @@
   "faviconUrl": "/examples/research-reader/favicon.svg",
   "welcomeTitle": "What are we reading today?",
   "welcomeMessage": "Attach a paper as a PDF and ask for a summary, the methods, or how it compares with related work.",
-  "suggestions": [
-    "Summarise the attached paper",
-    "What are the main limitations?",
-    "Explain the method to a newcomer"
-  ],
+  "suggestions": ["Summarise the attached paper", "What are the main limitations?", "Explain the method to a newcomer"],
   "inputPlaceholder": "Ask about a paper...",
   "footerText": "",
   "disclaimer": "Summaries can miss details. Check claims against the paper.",
-  "uploads": {
-    "enabled": true,
-    "maxFiles": 4,
-    "maxFileSizeMb": 20,
-    "accept": "application/pdf"
-  },
-  "fontSize": { "default": 17, "adjustable": true, "min": 14, "max": 28 },
-  "markdown": { "bracketMath": false },
+  "uploads": { "maxFiles": 4, "maxFileSizeMb": 20, "accept": "application/pdf" },
+  "fontSize": { "default": 17, "min": 14, "max": 28 },
+  "markdown": { "bracketMath": true },
   "theme": {
-    "mode": "system",
     "font": "Source Serif 4, Georgia, serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&display=swap",
     "buttonRadius": "2px",
-    "codeTheme": "auto",
-    "chatWidth": "",
+    "chatWidth": "56rem",
     "light": {
       "background": "#fdfcf8",
       "sidebarBackground": "#f1ede2",

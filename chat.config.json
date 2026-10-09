@@ -1,8 +1,6 @@
 {
   "appName": "Orbit",
-  "appDescription": "A focused chat workspace powered by a Google ADK agent.",
   "logoUrl": "",
-  "logoDarkUrl": "",
   "faviconUrl": "",
   "welcomeTitle": "How can I help today?",
   "welcomeMessage": "I'm your ADK assistant. Ask me anything, or attach a file and I'll take a look.",
@@ -10,32 +8,9 @@
   "inputPlaceholder": "Message your ADK agent...",
   "footerText": "Powered by a Google ADK agent",
   "disclaimer": "",
-  "uploads": {
-    "enabled": true,
-    "maxFiles": 5,
-    "maxFileSizeMb": 10,
-    "accept": "image/*,application/pdf,text/*,audio/*,video/*,.txt,.md,.csv,.json"
-  },
-  "fontSize": { "default": 15, "adjustable": true, "min": 12, "max": 24 },
-  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "system",
-    "font": "",
-    "fontUrl": "",
-    "buttonRadius": "",
-    "codeTheme": "auto",
-    "chatWidth": "",
-    "light": {
-      "background": "",
-      "sidebarBackground": "",
-      "buttonColor": "",
-      "chatBubbleColor": ""
-    },
-    "dark": {
-      "background": "",
-      "sidebarBackground": "",
-      "buttonColor": "",
-      "chatBubbleColor": ""
-    }
+    "light": { "background": "", "sidebarBackground": "", "buttonColor": "", "chatBubbleColor": "" },
+    "dark": { "background": "", "sidebarBackground": "", "buttonColor": "", "chatBubbleColor": "" }
   }
 }

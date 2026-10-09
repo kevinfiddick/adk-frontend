@@ -1,0 +1,8 @@
+{
+  "appName": "Helpdesk Bot",
+  "welcomeTitle": "What do you need help with?",
+  "theme": {
+    "light": { "buttonColor": "#2563eb" },
+    "dark": { "buttonColor": "#60a5fa" }
+  }
+}

@@ -6,29 +6,13 @@
   "faviconUrl": "/examples/support-desk/favicon.svg",
   "welcomeTitle": "Hi there! What can I help with?",
   "welcomeMessage": "Ask a product question, or paste a customer message and I will draft a reply.",
-  "suggestions": [
-    "How do I reset a password?",
-    "Draft a reply to a refund request",
-    "Summarise this ticket thread"
-  ],
+  "suggestions": ["How do I reset a password?", "Draft a reply to a refund request", "Summarise this ticket thread"],
   "inputPlaceholder": "Describe the issue...",
   "footerText": "Support Desk · powered by Google ADK",
-  "disclaimer": "",
-  "uploads": {
-    "enabled": true,
-    "maxFiles": 3,
-    "maxFileSizeMb": 5,
-    "accept": "image/*,application/pdf,text/plain,.txt"
-  },
-  "fontSize": { "default": 15, "adjustable": true, "min": 12, "max": 24 },
-  "markdown": { "bracketMath": false },
   "theme": {
-    "mode": "system",
     "font": "Nunito, sans-serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap",
     "buttonRadius": "9999px",
-    "codeTheme": "auto",
-    "chatWidth": "",
     "light": {
       "background": "#ffffff",
       "sidebarBackground": "#f3f0ff",

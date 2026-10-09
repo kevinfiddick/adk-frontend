@@ -315,8 +315,16 @@
     padding: 0.125em 0.375em;
     font-size: 0.875em;
   }
-  /* Fenced code. Colours come in light and dark pairs and follow the page's mode;
-     theme.codeTheme pins one by setting color-scheme on the block itself. */
+  /* Fenced code. Colours come in light and dark pairs and follow the page's mode.
+     theme.codeTheme pins one with the two classes below. They have to be CSS rules, not an inline
+     style: the build rewrites light-dark() into variables that it sets wherever a rule declares
+     color-scheme. */
+  .markdown .code-block.code-light {
+    color-scheme: light;
+  }
+  .markdown .code-block.code-dark {
+    color-scheme: dark;
+  }
   .markdown .code-block {
     margin: 1rem 0;
     overflow: hidden;
