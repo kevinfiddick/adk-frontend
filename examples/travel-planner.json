@@ -26,6 +26,8 @@
     "font": "Montserrat, sans-serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap",
     "buttonRadius": "12px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "#fff8f0",
       "sidebarBackground": "#0f4c5c",

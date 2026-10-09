@@ -22,6 +22,8 @@
     "font": "",
     "fontUrl": "",
     "buttonRadius": "",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "",
       "sidebarBackground": "",

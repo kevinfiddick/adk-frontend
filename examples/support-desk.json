@@ -26,6 +26,8 @@
     "font": "Nunito, sans-serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap",
     "buttonRadius": "9999px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "#ffffff",
       "sidebarBackground": "#f3f0ff",

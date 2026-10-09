@@ -46,7 +46,7 @@ export const ChatMessage = memo(function ChatMessage({ message, pending, status 
 
   if (message.role === 'user') return <article data-testid="user-message" className="flex flex-col items-end gap-2">
     {files.length > 0 && <Attachments files={files} align="end" />}
-    {message.content && <div data-testid="user-bubble" className="max-w-[min(680px,90%)] rounded-2xl rounded-tr-md bg-bubble px-4 py-2.5 text-[length:var(--chat-font-size)] leading-[1.85] break-words whitespace-pre-wrap text-bubble-foreground">{message.content}</div>}
+    {message.content && <div data-testid="user-bubble" className="max-w-[85%] rounded-2xl rounded-tr-md bg-bubble px-4 py-2.5 text-[length:var(--chat-font-size)] leading-[1.85] break-words whitespace-pre-wrap text-bubble-foreground">{message.content}</div>}
   </article>
 
   return <article data-testid="assistant-message" className="flex gap-3">

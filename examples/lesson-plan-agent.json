@@ -22,6 +22,8 @@
     "font": "Inter, sans-serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
     "buttonRadius": "9999px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "#fbfaf7",
       "sidebarBackground": "#12233f",

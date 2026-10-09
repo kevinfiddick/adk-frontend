@@ -26,6 +26,8 @@
     "font": "JetBrains Mono, monospace",
     "fontUrl": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
     "buttonRadius": "6px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "dark": {
       "background": "#0d1117",
       "sidebarBackground": "#010409",

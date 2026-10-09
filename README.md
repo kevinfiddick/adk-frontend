@@ -68,6 +68,8 @@ Branding, uploads and theme are set in `chat.config.json`. Any key left out fall
     "font": "",
     "fontUrl": "",
     "buttonRadius": "",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "",
       "sidebarBackground": "",
@@ -88,7 +90,7 @@ Branding, uploads and theme are set in `chat.config.json`. Any key left out fall
 
 | Key | Purpose |
 | --- | --- |
-| `appName` | Name in the sidebar and browser tab |
+| `appName` | Name at the top of the sidebar and in the browser tab. Long names wrap onto a second line |
 | `appDescription` | Page meta description |
 | `logoUrl` | Logo image: a path under `public/` (`/logo.svg`) or a URL. Empty uses the built-in mark |
 | `logoDarkUrl` | Optional logo for dark mode |
@@ -97,8 +99,8 @@ Branding, uploads and theme are set in `chat.config.json`. Any key left out fall
 | `welcomeMessage` | Text under the heading (Markdown) |
 | `suggestions` | Starter prompts |
 | `inputPlaceholder` | Message box placeholder |
-| `footerText` | Sidebar footer |
-| `disclaimer` | Small print under the message box |
+| `footerText` | Small print at the bottom of the sidebar, under the text-size slider. Hidden while the sidebar is collapsed |
+| `disclaimer` | One line of small print centred under the message box, visible on every screen, e.g. "AI can make mistakes. Check important information." Empty shows nothing |
 | `uploads.enabled` | Turn file uploads on or off |
 | `uploads.maxFiles` | Files per message |
 | `uploads.maxFileSizeMb` | Size limit per file |
@@ -124,6 +126,8 @@ The slider changes message and input text only. The sidebar, header and buttons 
 | `theme.font` | CSS font-family, e.g. `"Inter, sans-serif"`. Empty uses the system font |
 | `theme.fontUrl` | Stylesheet that loads the font, e.g. a Google Fonts URL. Not needed for fonts already on the device |
 | `theme.buttonRadius` | Corner radius of buttons as a CSS length: `"4px"`, or `"9999px"` for pills |
+| `theme.codeTheme` | Colours of code blocks. `"auto"` matches the page: light code blocks in light mode, dark in dark mode. `"light"` or `"dark"` pins one, for example dark code blocks on a light page |
+| `theme.chatWidth` | Widest the conversation column gets, as a CSS length. Empty scales with the screen: 48rem on a laptop, up to 90rem on a large monitor. Use `"48rem"` for a narrow reading column at every size, or `"100%"` to fill the window |
 | `theme.light`, `theme.dark` | Colours for each mode, with the four keys below |
 | `background` | Main page background |
 | `sidebarBackground` | Side panel background |

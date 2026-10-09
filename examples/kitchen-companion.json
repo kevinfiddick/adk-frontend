@@ -26,6 +26,8 @@
     "font": "Lora, Georgia, serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap",
     "buttonRadius": "9999px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "#fffdf7",
       "sidebarBackground": "#2f3e2c",

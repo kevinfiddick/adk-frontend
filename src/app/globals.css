@@ -84,6 +84,9 @@
   --bubble-foreground: var(--primary-foreground);
   /* Size of chat text; set from chat.config.json and the sidebar's text-size slider. */
   --chat-font-size: 15px;
+  /* Width of the conversation column: 48rem on small screens, growing with the window up to 90rem.
+     theme.chatWidth in chat.config.json replaces it. */
+  --chat-width: clamp(48rem, 70vw, 90rem);
 }
 
 .dark {
@@ -275,22 +278,36 @@
     max-width: 100%;
     border-radius: 0.75rem;
   }
+  /* A table fills the message. On a narrow screen it keeps a readable width and scrolls sideways
+     inside its wrapper, instead of squeezing every column. */
   .markdown table {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
+    max-width: max(100%, 36rem);
     border-collapse: collapse;
     text-align: left;
     font-size: 0.933em;
   }
+  /* Cells wrap between words, never inside one, so a column is at least as wide as its longest word. */
+  .markdown th,
+  .markdown td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: top;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  /* Links and code have no spaces to wrap at, so they alone may break anywhere. */
+  .markdown td a,
+  .markdown td code {
+    overflow-wrap: anywhere;
+  }
   .markdown th {
     border-bottom: 1px solid var(--border);
-    padding: 0.5rem 0.75rem;
     font-weight: 600;
-    white-space: nowrap;
+    vertical-align: bottom;
   }
   .markdown td {
     border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
-    padding: 0.5rem 0.75rem;
-    vertical-align: top;
   }
   .markdown :not(pre) > code {
     border-radius: 0.375rem;
@@ -298,12 +315,42 @@
     padding: 0.125em 0.375em;
     font-size: 0.875em;
   }
+  /* Fenced code. Colours come in light and dark pairs and follow the page's mode;
+     theme.codeTheme pins one by setting color-scheme on the block itself. */
+  .markdown .code-block {
+    margin: 1rem 0;
+    overflow: hidden;
+    border: 1px solid light-dark(#d1d9e0, #2a2f3a);
+    border-radius: 0.75rem;
+    background: light-dark(#f6f8fa, #111318);
+    color: light-dark(#1f2328, #e6edf3);
+  }
+  .markdown .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid light-dark(#d1d9e0, #2a2f3a);
+    padding: 0.375rem 0.5rem 0.375rem 1rem;
+    font-size: 0.75rem;
+    color: light-dark(#59636e, #9198a1);
+  }
+  .markdown .code-block-header button {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 150ms, color 150ms;
+  }
+  .markdown .code-block-header button:hover {
+    background: light-dark(rgb(0 0 0 / 7%), rgb(255 255 255 / 10%));
+    color: light-dark(#1f2328, #f0f6fc);
+  }
   .markdown pre {
     overflow-x: auto;
     padding: 1rem;
     font-size: 0.867em;
     line-height: 1.6;
-    color: #e6edf3;
   }
   .markdown .katex-display {
     overflow-x: auto;
@@ -317,22 +364,22 @@
     color: var(--muted-foreground);
   }
 
-  /* Syntax colours for fenced code, which always sits on a dark surface. */
+  /* Syntax colours for fenced code. */
   .markdown .hljs-comment,
   .markdown .hljs-quote {
-    color: #8b949e;
+    color: light-dark(#59636e, #8b949e);
     font-style: italic;
   }
   .markdown .hljs-keyword,
   .markdown .hljs-selector-tag,
   .markdown .hljs-type,
   .markdown .hljs-doctag {
-    color: #ff7b72;
+    color: light-dark(#cf222e, #ff7b72);
   }
   .markdown .hljs-string,
   .markdown .hljs-regexp,
   .markdown .hljs-addition {
-    color: #a5d6ff;
+    color: light-dark(#0a3069, #a5d6ff);
   }
   .markdown .hljs-number,
   .markdown .hljs-literal,
@@ -340,22 +387,22 @@
   .markdown .hljs-attribute,
   .markdown .hljs-variable,
   .markdown .hljs-meta {
-    color: #79c0ff;
+    color: light-dark(#0550ae, #79c0ff);
   }
   .markdown .hljs-title,
   .markdown .hljs-section,
   .markdown .hljs-name,
   .markdown .hljs-selector-id,
   .markdown .hljs-selector-class {
-    color: #d2a8ff;
+    color: light-dark(#8250df, #d2a8ff);
   }
   .markdown .hljs-built_in,
   .markdown .hljs-symbol,
   .markdown .hljs-bullet {
-    color: #ffa657;
+    color: light-dark(#953800, #ffa657);
   }
   .markdown .hljs-deletion {
-    color: #ffa198;
+    color: light-dark(#82071e, #ffa198);
   }
   .markdown .hljs-emphasis {
     font-style: italic;

@@ -64,7 +64,7 @@ export function ChatSidebar({ open, collapsed, sessions, titles, activeId, onClo
         <div className="flex h-full w-[271px] flex-col p-2">
           <div className="flex items-center gap-1">
             <div className="grid size-10 shrink-0 place-items-center"><Logo /></div>
-            <span data-testid="app-name" className={`min-w-0 flex-1 truncate font-semibold tracking-tight ${railHidden}`}>{config.appName}</span>
+            <span data-testid="app-name" title={config.appName} className={`line-clamp-2 min-w-0 flex-1 text-[15px] leading-5 font-semibold tracking-tight break-words ${railHidden}`}>{config.appName}</span>
             <Button variant="ghost" size="icon-lg" className="lg:hidden" onClick={onClose} aria-label="Close sidebar"><X /></Button>
             <span className="hidden lg:inline-flex"><Button variant="ghost" size="icon-lg" onClick={() => { onToggleCollapsed(); setPeeking(false) }} aria-label={collapsed ? 'Keep sidebar open' : 'Collapse sidebar'} title={collapsed ? 'Keep sidebar open' : 'Collapse sidebar'}>{collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}</Button></span>
           </div>

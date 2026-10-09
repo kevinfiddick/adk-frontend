@@ -26,6 +26,8 @@
     "font": "IBM Plex Sans, sans-serif",
     "fontUrl": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap",
     "buttonRadius": "4px",
+    "codeTheme": "auto",
+    "chatWidth": "",
     "light": {
       "background": "#f7f8fa",
       "sidebarBackground": "#0f2a43",

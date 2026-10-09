@@ -51,6 +51,7 @@ export function themeCss(theme: ThemeConfig) {
   const dark = colorVars(theme.dark)
   const font = fontFamily(theme.font)
   const radius = clean(theme.buttonRadius)
+  const chatWidth = clean(theme.chatWidth)
   const rules: string[] = []
   if (theme.mode === 'system') {
     if (light) rules.push(`@media (prefers-color-scheme: light){${root}{${light}}}`)
@@ -61,5 +62,6 @@ export function themeCss(theme: ThemeConfig) {
   }
   if (font) rules.push(`html{font-family:${font}}`)
   if (radius) rules.push(`[data-slot="button"]{border-radius:${radius}}`)
+  if (chatWidth) rules.push(`${root}{--chat-width:${chatWidth}}`)
   return rules.join('\n')
 }

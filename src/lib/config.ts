@@ -28,6 +28,10 @@ export type ThemeConfig = {
   fontUrl: string
   /** Any CSS length, e.g. "4px" or "9999px" for pills. Empty keeps the default. */
   buttonRadius: string
+  /** Colours of code blocks: "auto" follows the page's light or dark mode; "light" and "dark" pin one. */
+  codeTheme: 'auto' | 'light' | 'dark'
+  /** Widest the conversation column gets, as a CSS length: "48rem" for a narrow column, "100%" to fill the window. Empty scales with the screen. */
+  chatWidth: string
   /** Colours used in light mode. */
   light: ThemeColors
   /** Colours used in dark mode. */
@@ -89,6 +93,8 @@ const defaults: ChatConfig = {
     font: '',
     fontUrl: '',
     buttonRadius: '',
+    codeTheme: 'auto',
+    chatWidth: '',
     light: { background: '', sidebarBackground: '', buttonColor: '', chatBubbleColor: '' },
     dark: { background: '', sidebarBackground: '', buttonColor: '', chatBubbleColor: '' },
   },

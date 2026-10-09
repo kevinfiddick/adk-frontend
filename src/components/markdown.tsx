@@ -8,9 +8,16 @@ import rehypeHighlight from 'rehype-highlight'
 import rehypeKatex from 'rehype-katex'
 import { Check, Copy } from 'lucide-react'
 import 'katex/dist/katex.min.css'
+import { config } from '@/lib/config'
 
+const { codeTheme } = config.theme
 const remarkPlugins = [remarkGfm, remarkMath]
 const rehypePlugins = [rehypeKatex, rehypeHighlight]
+
+// A backslash before a bracket is also how Markdown escapes one, as in \[citation needed\], so
+// \[ ... \] and \( ... \) only count as LaTeX when what is inside reads as maths: a command, an
+// operator or grouping character, or a lone variable.
+const looksLikeMath = (content: string) => /\\[a-zA-Z]+|[\^_=<>+*/{}|]/.test(content) || /^\s*[A-Za-z]{1,2}\s*$/.test(content)
 
 // Models often write LaTeX as \( ... \) and \[ ... \], which remark-math does not read, and put
 // display equations on one line as $$ ... $$, which it would set inline. Rewrite those to the
@@ -19,8 +26,8 @@ function normalizeMath(source: string) {
   if (!source.includes('\\(') && !source.includes('\\[') && !source.includes('$$')) return source
   return source.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`)/).map((segment, index) => index % 2 ? segment : segment
     .replace(/^([ \t]*)\$\$(.+?)\$\$[ \t]*$/gm, (_, indent: string, math: string) => `${indent}$$\n${indent}${math.trim()}\n${indent}$$`)
-    .replace(/\\\[([\s\S]+?)\\\]/g, (_, math: string) => `\n$$\n${math.trim()}\n$$\n`)
-    .replace(/\\\(([\s\S]+?)\\\)/g, (_, math: string) => `$${math.trim()}$`)).join('')
+    .replace(/\\\[([\s\S]+?)\\\]/g, (match, math: string) => looksLikeMath(math) ? `\n$$\n${math.trim()}\n$$\n` : match)
+    .replace(/\\\(([\s\S]+?)\\\)/g, (match, math: string) => looksLikeMath(math) ? `$${math.trim()}$` : match)).join('')
 }
 
 type SyntaxNode = { value?: string; children?: SyntaxNode[]; properties?: { className?: unknown } }
@@ -39,10 +46,10 @@ function CodeBlock({ node, children }: ComponentProps<'pre'> & ExtraProps) {
     if (!(await copyText(nodeText(code).replace(/\n$/, '')))) return
     setCopied(true); setTimeout(() => setCopied(false), 1500)
   }
-  return <div className="my-4 overflow-hidden rounded-xl border border-border/70 bg-[#111318]">
-    <div className="flex items-center justify-between border-b border-white/10 py-1.5 pr-2 pl-4 text-xs text-slate-400">
+  return <div className="code-block" style={codeTheme === 'auto' ? undefined : { colorScheme: codeTheme }}>
+    <div className="code-block-header">
       <span data-testid="code-language">{language || 'code'}</span>
-      <button type="button" data-testid="code-copy" onClick={copy} className="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 transition-colors hover:bg-white/10 hover:text-slate-100">{copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}{copied ? 'Copied' : 'Copy'}</button>
+      <button type="button" data-testid="code-copy" onClick={copy}>{copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}{copied ? 'Copied' : 'Copy'}</button>
     </div>
     <pre>{children}</pre>
   </div>

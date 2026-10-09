@@ -192,9 +192,9 @@ export function ChatShell() {
         <div data-testid="chat-status" className="flex shrink-0 items-center gap-2 text-xs text-muted-foreground"><span className={`size-1.5 rounded-full ${isStreaming ? 'animate-pulse bg-amber-500' : 'bg-emerald-500'}`} />{isStreaming ? 'Responding' : 'Ready'}</div>
       </header>
       <div ref={scrollRef} data-testid="chat-scroll" className="flex-1 overflow-y-auto" onScroll={(event) => { const view = event.currentTarget; pinnedRef.current = view.scrollHeight - view.scrollTop - view.clientHeight < 120 }}>
-        <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-8 sm:py-10">
+        <div className="mx-auto flex min-h-full w-full max-w-(--chat-width) flex-col gap-8 px-4 py-8 sm:px-8 sm:py-10">
           {isLoading && <p className="m-auto animate-pulse text-sm text-muted-foreground">Loading chat...</p>}
-          {isEmpty && <div className="m-auto flex w-full flex-col items-center gap-4 py-8 text-center">
+          {isEmpty && <div className="m-auto flex w-full max-w-3xl flex-col items-center gap-4 py-8 text-center">
             <Logo className="size-14 rounded-2xl" />
             <h1 className="text-2xl font-semibold tracking-tight text-balance">{config.welcomeTitle}</h1>
             {config.welcomeMessage && <div className="max-w-xl text-[length:var(--chat-font-size)] leading-[1.85] text-muted-foreground"><Markdown content={config.welcomeMessage} /></div>}
@@ -204,7 +204,7 @@ export function ChatShell() {
           {error && <div role="alert" data-testid="chat-error" className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">{error}</div>}
         </div>
       </div>
-      <div className="mx-auto w-full max-w-3xl shrink-0 px-4 pb-4 sm:px-8">
+      <div className="mx-auto w-full max-w-(--chat-width) shrink-0 px-4 pb-4 sm:px-8">
         <ChatComposer ref={composerRef} disabled={!userId || isLoading} isStreaming={isStreaming} onSend={sendMessage} onStop={stopStreaming} />
         {config.disclaimer && <p className="pt-2 text-center text-xs text-muted-foreground">{config.disclaimer}</p>}
       </div>
