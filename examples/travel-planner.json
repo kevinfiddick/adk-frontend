@@ -21,6 +21,7 @@
     "accept": "image/*,application/pdf"
   },
   "fontSize": { "default": 16, "adjustable": true, "min": 13, "max": 24 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "light",
     "font": "Montserrat, sans-serif",

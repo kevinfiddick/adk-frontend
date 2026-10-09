@@ -1,6 +1,6 @@
 {
   "name": "adk-frontend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A quickly rebrandable chat UI for Google ADK agent demos.",
   "private": true,
   "license": "MIT",

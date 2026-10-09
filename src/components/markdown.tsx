@@ -11,23 +11,39 @@ import 'katex/dist/katex.min.css'
 import { config } from '@/lib/config'
 
 const { codeTheme } = config.theme
+const { bracketMath } = config.markdown
 const remarkPlugins = [remarkGfm, remarkMath]
 const rehypePlugins = [rehypeKatex, rehypeHighlight]
 
-// A backslash before a bracket is also how Markdown escapes one, as in \[citation needed\], so
-// \[ ... \] and \( ... \) only count as LaTeX when what is inside reads as maths: a command, an
-// operator or grouping character, or a lone variable.
-const looksLikeMath = (content: string) => /\\[a-zA-Z]+|[\^_=<>+*/{}|]/.test(content) || /^\s*[A-Za-z]{1,2}\s*$/.test(content)
-
-// Models often write LaTeX as \( ... \) and \[ ... \], which remark-math does not read, and put
-// display equations on one line as $$ ... $$, which it would set inline. Rewrite those to the
-// forms remark-math expects, leaving code spans and fences untouched.
+// Maths is written between dollar signs, as Markdown's maths convention has it. A display
+// equation that arrives on one line as $$ ... $$ would be set inline, so it is moved onto its
+// own lines. Code spans and fences are left untouched.
+//
+// Standard Markdown reads \[ and \( as escaped brackets, and that is the default here. Some
+// models write LaTeX between them instead; markdown.bracketMath turns on reading those as maths.
 function normalizeMath(source: string) {
-  if (!source.includes('\\(') && !source.includes('\\[') && !source.includes('$$')) return source
-  return source.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`)/).map((segment, index) => index % 2 ? segment : segment
-    .replace(/^([ \t]*)\$\$(.+?)\$\$[ \t]*$/gm, (_, indent: string, math: string) => `${indent}$$\n${indent}${math.trim()}\n${indent}$$`)
-    .replace(/\\\[([\s\S]+?)\\\]/g, (match, math: string) => looksLikeMath(math) ? `\n$$\n${math.trim()}\n$$\n` : match)
-    .replace(/\\\(([\s\S]+?)\\\)/g, (match, math: string) => looksLikeMath(math) ? `$${math.trim()}$` : match)).join('')
+  if (!source.includes('$$') && !(bracketMath && (source.includes('\\(') || source.includes('\\[')))) return source
+  return source.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`)/).map((segment, index) => {
+    if (index % 2) return segment
+    const text = segment.replace(/^([ \t]*)\$\$(.+?)\$\$[ \t]*$/gm, (_, indent: string, math: string) => `${indent}$$\n${indent}${math.trim()}\n${indent}$$`)
+    if (!bracketMath) return text
+    return text
+      .replace(/\\\[([\s\S]+?)\\\]/g, (match, math: string) => looksLikeMath(math, false) ? `\n$$\n${math.trim()}\n$$\n` : match)
+      .replace(/\\\(([\s\S]+?)\\\)/g, (match, math: string) => looksLikeMath(math, true) ? `$${math.trim()}$` : match)
+  }).join('')
+}
+
+// With bracketMath on, \[ ... \] could still be an escaped bracket, as in \[required\_info\], so
+// it only counts as LaTeX when what is inside reads as maths. Escaped punctuation (\_ \* \{) is
+// set aside first: it is literal text in both Markdown and LaTeX.
+function looksLikeMath(content: string, inline: boolean) {
+  const text = content.replace(/\\[^a-zA-Z\s]/g, '')
+  return /\\[a-zA-Z]{2,}/.test(text) // a command: \frac, \sum, \pi
+    || /[\^=]/.test(text) // a power or an equation
+    || /(^|[^A-Za-z])[A-Za-z]_/.test(text) // a subscript on a one-letter name: x_i, but not snake_case
+    || /\d\s*[+\-*/<>]\s*\d/.test(text) // arithmetic on numbers: 2 + 2, 1/2
+    || /(^|[^A-Za-z])[A-Za-z]\s*[+\-*<>]\s*[A-Za-z0-9]($|[^A-Za-z])/.test(text) // a + b, n - 1, x < y
+    || (inline && /^\s*[A-Za-z]\s*$/.test(text)) // a lone variable: \(x\)
 }
 
 type SyntaxNode = { value?: string; children?: SyntaxNode[]; properties?: { className?: unknown } }

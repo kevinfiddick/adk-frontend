@@ -21,6 +21,7 @@
     "accept": "application/pdf,text/csv,text/plain,.csv,.txt"
   },
   "fontSize": { "default": 15, "adjustable": true, "min": 13, "max": 22 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "light",
     "font": "IBM Plex Sans, sans-serif",

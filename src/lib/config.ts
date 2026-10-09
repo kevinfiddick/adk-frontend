@@ -48,6 +48,15 @@ export type FontSizeConfig = {
   max: number
 }
 
+export type MarkdownConfig = {
+  /**
+   * Read \( ... \) and \[ ... \] as LaTeX when their contents look like maths. Off by default,
+   * because standard Markdown treats those as escaped brackets and Gemini writes maths with $ signs.
+   * Turn it on for agents backed by a model that writes maths between backslash brackets.
+   */
+  bracketMath: boolean
+}
+
 export type ChatConfig = {
   appName: string
   appDescription: string
@@ -66,6 +75,7 @@ export type ChatConfig = {
   disclaimer: string
   uploads: UploadConfig
   fontSize: FontSizeConfig
+  markdown: MarkdownConfig
   theme: ThemeConfig
 }
 
@@ -88,6 +98,7 @@ const defaults: ChatConfig = {
     accept: 'image/*,application/pdf,text/*,audio/*,video/*,.txt,.md,.csv,.json',
   },
   fontSize: { default: 15, adjustable: true, min: 12, max: 24 },
+  markdown: { bracketMath: false },
   theme: {
     mode: 'system',
     font: '',
@@ -101,7 +112,7 @@ const defaults: ChatConfig = {
 }
 
 type ThemeFile = Partial<Omit<ThemeConfig, 'light' | 'dark'>> & { light?: Partial<ThemeColors>; dark?: Partial<ThemeColors> }
-const file = fileConfig as Partial<Omit<ChatConfig, 'uploads' | 'fontSize' | 'theme'>> & { uploads?: Partial<UploadConfig>; fontSize?: Partial<FontSizeConfig>; theme?: ThemeFile }
+const file = fileConfig as Partial<Omit<ChatConfig, 'uploads' | 'fontSize' | 'markdown' | 'theme'>> & { uploads?: Partial<UploadConfig>; fontSize?: Partial<FontSizeConfig>; markdown?: Partial<MarkdownConfig>; theme?: ThemeFile }
 
 const defined = <T extends object>(values: T) =>
   Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined)) as Partial<T>
@@ -112,6 +123,7 @@ export const config: ChatConfig = {
   ...defined(file),
   uploads: { ...defaults.uploads, ...defined(file.uploads ?? {}) },
   fontSize: { ...defaults.fontSize, ...defined(file.fontSize ?? {}) },
+  markdown: { ...defaults.markdown, ...defined(file.markdown ?? {}) },
   theme: {
     ...defaults.theme,
     ...defined(file.theme ?? {}),

@@ -21,6 +21,7 @@
     "accept": "image/*,application/pdf,text/plain,.txt"
   },
   "fontSize": { "default": 15, "adjustable": true, "min": 12, "max": 24 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "system",
     "font": "Nunito, sans-serif",

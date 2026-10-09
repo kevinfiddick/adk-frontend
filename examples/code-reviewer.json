@@ -21,6 +21,7 @@
     "accept": "text/*,.py,.js,.jsx,.ts,.tsx,.java,.go,.rs,.json,.md,.sql,.sh"
   },
   "fontSize": { "default": 14, "adjustable": true, "min": 12, "max": 20 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "dark",
     "font": "JetBrains Mono, monospace",

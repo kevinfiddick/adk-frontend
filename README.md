@@ -63,6 +63,7 @@ Branding, uploads and theme are set in `chat.config.json`. Any key left out fall
     "accept": "image/*,application/pdf,text/*,audio/*,video/*,.txt,.md,.csv,.json"
   },
   "fontSize": { "default": 15, "adjustable": true, "min": 12, "max": 24 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "system",
     "font": "",
@@ -117,6 +118,14 @@ To hide something (the footer, the suggestions), set it to `""` or `[]`.
 | `fontSize.min`, `fontSize.max` | Range of the slider, in pixels |
 
 The slider changes message and input text only. The sidebar, header and buttons keep their size, so larger text gets the room that browser zoom would take away. Each visitor's choice is remembered in their browser.
+
+### Markdown and maths
+
+Replies are rendered as standard Markdown with tables, highlighted code and LaTeX. Maths goes between dollar signs, which is how Gemini writes it: `$x^2$` inline and `$$x^2$$` for a centred equation.
+
+| Key | Purpose |
+| --- | --- |
+| `markdown.bracketMath` | `false` (the default) follows standard Markdown, where `\[` and `\(` are escaped brackets: `\[required\_info\]` shows as [required_info]. Set it to `true` if your agent's model writes maths as `\( ... \)` and `\[ ... \]`; those are then rendered as LaTeX when their contents look like maths |
 
 ### Theme
 

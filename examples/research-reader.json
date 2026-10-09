@@ -21,6 +21,7 @@
     "accept": "application/pdf"
   },
   "fontSize": { "default": 17, "adjustable": true, "min": 14, "max": 28 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "system",
     "font": "Source Serif 4, Georgia, serif",

@@ -21,6 +21,7 @@
     "accept": "image/*"
   },
   "fontSize": { "default": 16, "adjustable": false, "min": 12, "max": 24 },
+  "markdown": { "bracketMath": false },
   "theme": {
     "mode": "light",
     "font": "Lora, Georgia, serif",
