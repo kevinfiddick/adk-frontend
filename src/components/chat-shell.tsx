@@ -50,7 +50,9 @@ export function ChatShell() {
 
   useEffect(() => {
     let id = localStorage.getItem(USER_KEY)
-    if (!id) { id = crypto.randomUUID(); localStorage.setItem(USER_KEY, id) }
+    // Kept short: ADK's local storage puts the user ID in file paths, and a full UUID pushes
+    // uploaded artifacts past the 260-character path limit on Windows.
+    if (!id) { id = crypto.randomUUID().slice(0, 8); localStorage.setItem(USER_KEY, id) }
     const user = id
     let stored: Record<string, string> = {}
     try { stored = JSON.parse(localStorage.getItem(TITLES_KEY) || '{}') } catch { /* start with no titles */ }

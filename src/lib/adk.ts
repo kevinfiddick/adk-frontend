@@ -40,6 +40,9 @@ export function filesOfParts(parts: AdkPart[] = []): Attachment[] {
   return files
 }
 
+// ADK's SaveFilesAsArtifactsPlugin stores an uploaded file as this text in place of the file itself.
+const artifactPlaceholder = /\[Uploaded Artifact: "([^"]+)"\]\s*/g
+
 /** Collapse a session's event log into chat messages; tool calls and partial events are dropped. */
 export function eventsToMessages(events: AdkEvent[] = []): Message[] {
   const messages: Message[] = []
@@ -47,8 +50,13 @@ export function eventsToMessages(events: AdkEvent[] = []): Message[] {
     if (event.partial) return
     const role = event.content?.role === 'user' ? 'user' : event.content?.role === 'model' ? 'assistant' : null
     if (!role) return
-    const content = textOfParts(event.content?.parts)
+    let content = textOfParts(event.content?.parts)
     const attachments = filesOfParts(event.content?.parts)
+    // Shown as a file chip, like the upload it stands for, unless the plugin also kept a link to the file.
+    if (role === 'user') content = content.replace(artifactPlaceholder, (_, name: string) => {
+      if (!attachments.some((file) => file.name === name)) attachments.push({ name, mimeType: '' })
+      return ''
+    })
     if (!content.trim() && !attachments.length) return
     const previous = messages.at(-1)
     // One agent turn can span several events (text, tool call, more text).

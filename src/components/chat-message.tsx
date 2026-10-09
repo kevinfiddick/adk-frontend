@@ -20,7 +20,7 @@ export function AttachmentChip({ file, onRemove }: { file: Attachment; onRemove?
     {isImage ? <img src={source} alt="" className="size-9 shrink-0 rounded-lg object-cover" /> : <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground"><FileText className="size-4" /></span>}
     <span className="min-w-0">
       {source?.startsWith('http') ? <a href={source} target="_blank" rel="noreferrer" className="block truncate font-medium underline underline-offset-2">{file.name}</a> : <span className="block truncate font-medium">{file.name}</span>}
-      <span className="block truncate text-muted-foreground">{file.size ? formatSize(file.size) : file.mimeType}</span>
+      <span className="block truncate text-muted-foreground">{file.size ? formatSize(file.size) : file.mimeType || 'Saved artifact'}</span>
     </span>
     {onRemove && <button type="button" onClick={onRemove} aria-label={`Remove ${file.name}`} className="absolute -top-1.5 -right-1.5 grid size-5 place-items-center rounded-full border border-border bg-background text-muted-foreground hover:text-foreground"><X className="size-3" /></button>}
   </div>
