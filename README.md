@@ -21,7 +21,7 @@ What you get:
 - File uploads by button, drag and drop, or paste
 - Streamed Markdown with tables, highlighted code and LaTeX
 - Branding and theme from `chat.config.json`: name, logo, favicon, welcome text, colours, light or dark mode, font, button shape
-- A collapsible sidebar and a text-size slider for readability
+- A sidebar you can collapse to an icon rail or drag to resize, and a text-size slider for readability
 - Seven ready-made example configs in `examples/`
 
 ## Quick start

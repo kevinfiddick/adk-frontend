@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { PanelLeftClose, PanelLeftOpen, Plus, Trash2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FontSizeControl } from '@/components/font-size-control'
@@ -9,6 +9,11 @@ import type { SessionSummary } from '@/lib/adk'
 import { config } from '@/lib/config'
 
 const DAY = 24 * 60 * 60 * 1000
+const WIDTH_KEY = 'adk-sidebar-width'
+const DEFAULT_WIDTH = 272
+const MIN_WIDTH = 200
+const MAX_WIDTH = 480
+const clampWidth = (width: number) => Math.round(Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, width)))
 
 function groupByAge(sessions: SessionSummary[]) {
   const midnight = new Date().setHours(0, 0, 0, 0)
@@ -51,17 +56,30 @@ export function ChatSidebar({ open, collapsed, sessions, titles, activeId, onClo
   }
   useEffect(() => () => { if (peekTimer.current) clearTimeout(peekTimer.current) }, [])
 
+  // On large screens the open sidebar can be dragged wider or narrower by its right edge.
+  const [width, setWidth] = useState(DEFAULT_WIDTH)
+  const [resizing, setResizing] = useState(false)
+  useEffect(() => {
+    const stored = Number(localStorage.getItem(WIDTH_KEY))
+    if (stored) setWidth(clampWidth(stored))
+  }, [])
+  function resizeTo(next: number) {
+    const clamped = clampWidth(next)
+    setWidth(clamped)
+    localStorage.setItem(WIDTH_KEY, String(clamped))
+  }
+
   // Only large screens have the rail, so everything it hides is behind an lg: class.
   const rail = collapsed && !peeking
   const railHidden = `transition-[opacity,visibility] duration-200 ${rail ? 'lg:invisible lg:opacity-0' : ''}`
 
   return <>
     {/* This box holds the sidebar's place in the layout; the sidebar itself can open wider than it. */}
-    <div className={`shrink-0 lg:relative lg:transition-[width] lg:duration-200 ${collapsed ? 'lg:w-14' : 'lg:w-[272px]'}`}>
+    <div style={{ '--sidebar-width': `${width}px` } as CSSProperties} className={`shrink-0 lg:relative ${resizing ? '' : 'lg:transition-[width] lg:duration-200'} ${collapsed ? 'lg:w-14' : 'lg:w-(--sidebar-width)'}`}>
       <aside onMouseEnter={() => peek(true)} onMouseLeave={() => peek(false)} onFocus={() => setPeeking(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) peek(false) }}
-        className={`sidebar-surface fixed inset-y-0 left-0 z-20 w-[272px] overflow-clip border-r border-sidebar-border bg-sidebar transition-[translate,width,box-shadow] duration-200 lg:absolute lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'} ${rail ? 'lg:w-14' : ''} ${collapsed && peeking ? 'lg:shadow-2xl' : ''}`}>
+        className={`sidebar-surface fixed inset-y-0 left-0 z-20 w-[272px] overflow-clip border-r border-sidebar-border bg-sidebar lg:absolute lg:translate-x-0 ${resizing ? 'transition-none' : 'transition-[translate,width,box-shadow] duration-200'} ${open ? 'translate-x-0' : '-translate-x-full'} ${rail ? 'lg:w-14' : 'lg:w-(--sidebar-width)'} ${collapsed && peeking ? 'lg:shadow-2xl' : ''}`}>
         {/* Laid out at full width and clipped by the rail, so nothing reflows while the width animates. */}
-        <div className="flex h-full w-[271px] flex-col p-2">
+        <div className="flex h-full w-[271px] flex-col p-2 lg:w-[calc(var(--sidebar-width)-1px)]">
           <div className="flex items-center gap-1">
             <div className="grid size-10 shrink-0 place-items-center"><Logo /></div>
             <span data-testid="app-name" title={config.appName} className={`line-clamp-2 min-w-0 flex-1 text-[15px] leading-5 font-semibold tracking-tight break-words ${railHidden}`}>{config.appName}</span>
@@ -83,6 +101,15 @@ export function ChatSidebar({ open, collapsed, sessions, titles, activeId, onClo
           {config.footerText && <div className={`px-2 pt-2 pb-2 text-xs leading-5 text-muted-foreground ${railHidden}`}>{config.footerText}</div>}
         </div>
       </aside>
+      {/* The sidebar sits against the left edge of the window, so the pointer's x position is the new width. */}
+      {!collapsed && <div role="separator" aria-orientation="vertical" aria-label="Resize sidebar" aria-valuemin={MIN_WIDTH} aria-valuemax={MAX_WIDTH} aria-valuenow={width} tabIndex={0} title="Drag to resize. Double-click to reset."
+        onPointerDown={(event) => { if (event.button !== 0) return; event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); setResizing(true) }}
+        onPointerMove={(event) => { if (resizing) setWidth(clampWidth(event.clientX)) }}
+        onPointerUp={(event) => { if (resizing) { setResizing(false); resizeTo(event.clientX) } }}
+        onPointerCancel={() => setResizing(false)}
+        onDoubleClick={() => resizeTo(DEFAULT_WIDTH)}
+        onKeyDown={(event) => { if (event.key === 'ArrowLeft') resizeTo(width - 16); else if (event.key === 'ArrowRight') resizeTo(width + 16) }}
+        className={`absolute inset-y-0 -right-1 z-30 hidden w-2 cursor-col-resize touch-none outline-none after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 after:-translate-x-1/2 after:transition-colors hover:after:bg-ring focus-visible:after:bg-ring lg:block ${resizing ? 'after:bg-ring' : ''}`} />}
     </div>
     {open && <button className="fixed inset-0 z-10 bg-black/20 lg:hidden" onClick={onClose} aria-label="Close navigation" />}
   </>
