@@ -16,7 +16,7 @@ const SESSION_KEY = 'adk-session-id'
 const COLLAPSED_KEY = 'adk-sidebar-collapsed'
 const TITLES_KEY = 'adk-session-titles'
 
-type StreamEvent = { text?: string; status?: string; files?: Attachment[]; error?: string; debug?: { label: string; data: unknown } }
+type StreamEvent = { text?: string; status?: string; files?: Attachment[]; error?: string }
 
 async function api<T>(url: string, init?: RequestInit) {
   const response = await fetch(url, init)
@@ -157,8 +157,6 @@ export function ChatShell() {
           const data = chunk.split('\n').filter((line) => line.startsWith('data:')).map((line) => line.slice(5).trim()).join('')
           if (!data || data === '[DONE]') continue
           const parsed = JSON.parse(data) as StreamEvent
-          // Temporary upload diagnostics; see the matching note in api/chat/route.ts.
-          if (parsed.debug) { console.log(`[adk-debug] ${parsed.debug.label}`, JSON.stringify(parsed.debug.data, null, 2)); continue }
           if (parsed.error) throw new Error(parsed.error)
           if (!isCurrent()) continue
           if (parsed.status) setStatus(parsed.status)
