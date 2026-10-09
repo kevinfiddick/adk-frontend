@@ -1,10 +1,9 @@
 {
   "name": "adk-frontend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A quickly rebrandable chat UI for Google ADK agent demos.",
   "private": true,
   "license": "MIT",
-  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=20.9.0"
   },
@@ -33,5 +32,8 @@
     "postcss": "^8.5.29",
     "tailwindcss": "^4.3.3",
     "typescript": "5.7.3"
+  },
+  "overrides": {
+    "katex": "$katex"
   }
 }

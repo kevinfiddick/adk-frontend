@@ -26,20 +26,20 @@ What you get:
 
 ## Quick start
 
-You need [Node.js](https://nodejs.org) 20.9 or newer, [pnpm](https://pnpm.io), and an agent built with the [Google Agent Development Kit](https://google.github.io/adk-docs/).
+You need [Node.js](https://nodejs.org) 20.9 or newer, which includes npm, and an agent built with the [Google Agent Development Kit](https://google.github.io/adk-docs/).
 
 1. Start your Python ADK API server in its own terminal: `uv run adk api_server . --port 8000` from the directory **containing** your agent folder. Confirm http://127.0.0.1:8000/list-apps includes your agent.
 2. Copy `.env.example` to `.env.local`. Set `ADK_APP_NAME` to the exact `/list-apps` result. Keep `ADK_MOCK_MODE=false` for live ADK.
-3. Run `pnpm install` and `pnpm dev` in this frontend directory. Open http://localhost:3000.
+3. Run `npm install` and `npm run dev` in this frontend directory. Open http://localhost:3000.
 4. Edit `chat.config.json` to rebrand it, or copy one of the [example configs](#example-configs) over it.
 
-No agent yet? Set `ADK_MOCK_MODE=true` in `.env.local` and restart `pnpm dev`. Mock mode replies with canned text, does not need ADK, and keeps its sessions in memory. It only works in development.
+No agent yet? Set `ADK_MOCK_MODE=true` in `.env.local` and restart `npm run dev`. Mock mode replies with canned text, does not need ADK, and keeps its sessions in memory. It only works in development.
 
-To run a production build, use `pnpm build` and then `pnpm start`.
+To run a production build, use `npm run build` and then `npm start`.
 
 ## Configuration
 
-Branding, uploads and theme are set in `chat.config.json`. Any key left out falls back to its built-in default. `pnpm dev` picks up edits immediately; a production deployment needs a rebuild.
+Branding, uploads and theme are set in `chat.config.json`. Any key left out falls back to its built-in default. `npm run dev` picks up edits immediately; a production deployment needs a rebuild.
 
 ### Default config
 
