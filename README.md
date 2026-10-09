@@ -254,7 +254,7 @@ Each example except `minimal.json` reads its logo and favicon from `public/examp
 ## How it works
 
 - **Sessions** are ADK sessions. The sidebar lists, opens and deletes them through the ADK API. ADK sessions have no name, so each chat's title (its first message) is remembered in the browser's localStorage and re-derived from the session when missing.
-- **Files** are attached with the paperclip, by drag and drop, or by pasting. They are sent to the agent inline (`inlineData` parts), so the model behind your agent must accept the file type; Gemini takes images, PDF, text, audio and video, with a total request size of about 20 MB. ADK does not store file names, so a reopened chat labels non-image files by type.
+- **Files** are attached with the paperclip, by drag and drop, or by pasting. They are sent to the agent inline (`inlineData` parts), so the model behind your agent must accept the file type; Gemini takes images, PDF, text, audio and video, with a total request size of about 20 MB. The file name is sent as the part's `displayName`, as `adk web` does, so an agent that saves uploads as artifacts sees `[Uploaded Artifact: "<filename>"]` with the real name.
 - **Routes**: `POST /api/chat` streams a reply, `GET /api/sessions` lists chats, `GET` and `DELETE /api/sessions/[id]` load and remove one. All of them proxy to `ADK_API_URL`.
 
 ## Project layout

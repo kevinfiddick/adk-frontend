@@ -68,7 +68,8 @@ export async function POST(request: Request) {
   const invalid = configError()
   if (invalid) return invalid
   // Files go first so the model reads them before the question about them.
-  const parts: AdkPart[] = [...files.map((file) => ({ inlineData: { mimeType: file.mimeType, data: file.data } })), ...(message ? [{ text: message }] : [])]
+  // The file name travels as displayName, as in adk web: ADK names the saved artifact after it.
+  const parts: AdkPart[] = [...files.map((file) => ({ inlineData: { mimeType: file.mimeType, data: file.data, ...(file.name ? { displayName: file.name } : {}) } })), ...(message ? [{ text: message }] : [])]
   let sessionId = body?.sessionId
   if (mock()) {
     sessionId ||= crypto.randomUUID()
