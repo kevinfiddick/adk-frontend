@@ -55,6 +55,9 @@ function mockStream(userId: string, sessionId: string, parts: AdkPart[], message
     },
   })
 }
+// Temporary upload diagnostics: every "[adk-debug]" line goes to the server terminal and the browser console.
+// File contents are replaced by their length so the logs stay readable and shareable.
+const trim = (value: unknown) => JSON.parse(JSON.stringify(value, (key, item) => key === 'data' && typeof item === 'string' ? `<${item.length} base64 chars>` : key === 'thoughtSignature' ? undefined : item) ?? 'null') as unknown
 const headers = (sessionId: string) => ({ 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache, no-transform', 'x-adk-session-id': sessionId })
 
 export async function POST(request: Request) {
@@ -96,6 +99,12 @@ export async function POST(request: Request) {
         let assembled = ''
         let partialText = ''
         const joined = () => [assembled, partialText].filter(Boolean).join('\n\n')
+        const debug = (label: string, data: unknown) => {
+          const entry = trim(data)
+          console.log(`[adk-debug] ${label}`, JSON.stringify(entry))
+          try { controller.enqueue(encode({ debug: { label, data: entry } })) } catch { /* the client stopped the response */ }
+        }
+        debug('1. sent to ADK', { url: `${base()}/run_sse`, appName: app(), sessionId, parts })
         // ADK sends partial text events followed by a complete replacement event.
         // The outgoing stream always sends full accumulated text (not append-only chunks).
         const processBlock = (block: string) => {
@@ -103,6 +112,7 @@ export async function POST(request: Request) {
           if (!raw || raw === '[DONE]') return
           const event = parseEvent(raw)
           if (!event) return
+          if (!event.partial) debug('2. event from ADK', { author: event.author, role: event.content?.role, parts: event.content?.parts, errorCode: event.errorCode, errorMessage: event.errorMessage })
           if (event.errorMessage || event.errorCode) { controller.enqueue(encode({ error: event.errorMessage || event.errorCode })); return }
           if (event.content?.role !== 'model') return
           const parts = event.content.parts || []
@@ -133,6 +143,12 @@ export async function POST(request: Request) {
           }
           buffer += decoder.decode()
           if (buffer.trim()) processBlock(buffer)
+          // What ADK kept for the turn: the user message after any plugin rewrote it, and the saved artifacts.
+          try {
+            const stored = await (await fetch(sessionUrl(userId, sessionId), { cache: 'no-store' })).json() as { events?: AdkEvent[] }
+            const artifacts = await fetch(`${sessionUrl(userId, sessionId)}/artifacts`, { cache: 'no-store' }).then((result) => result.ok ? result.json() : `request failed (${result.status})`)
+            debug('3. stored by ADK', { userMessage: stored.events?.findLast((event) => event.author === 'user')?.content?.parts, artifacts })
+          } catch (error) { debug('3. stored by ADK', { failed: error instanceof Error ? error.message : 'unknown error' }) }
           controller.enqueue(encode({ done: true }))
         } catch (error) {
           try { controller.enqueue(encode({ error: error instanceof Error ? error.message : 'ADK stream interrupted.' })) } catch { /* the client stopped the response */ }
